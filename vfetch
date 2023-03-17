@@ -39,16 +39,21 @@ freemem=$(free -m | grep -oP '\d+' | head -2 | tail -1)
 Arch=$(hostnamectl | grep "Arch" | tail -n 1 | cut -b 19-) # Get The ARCH
 Kernel=$(uname -r) # Get The Kernel Version
 Host=$(hostname)
-Sh=$(echo $SHELL)
-Cpumodel=$(cat /proc/cpuinfo | grep "model name" | tail -n 1)
+Sh=$(echo $SHELL | cut -b 6-)
+Cpumodel=$(cat /proc/cpuinfo | grep "model name" | tail -n 1 | cut -b 14-)
 Uptime=$(uptime -p | cut -b 4-)
-color=$(cat ~/.vfetch/vfetch-config)
+
+color=$(cat /var/.vfetch/vfetch-config | tail -n 1 | cut -b 14-)
+res=$(xdpyinfo | awk '/dimensions:/ { print $2 }')
 printf $color
 figlet $OS
-printf "${greenbold}Host Name ${white}: ${bluebold}$Host\n"
-printf "${greenbold}OS        ${white}: ${bluebold}$OS $VER\n"
-printf "${greenbold}Kernel    ${white}: ${bluebold}$Kernel\n"
-printf "${greenbold}ARCH      ${white}: ${bluebold}$Arch\n"
-printf "${greenbold}Shell     ${white}: ${bluebold}$Sh\n"
-printf "${greenbold}Memory    ${white}: ${bluebold}Free ${white}: ${bluebold}$freemem Total ${white}: ${bluebold}$phymem MiB\n"
-printf "${greenbold}Uptime    ${white}: ${bluebold}$Uptime\n"
+printf "${greenbold}Host Name  ${white}: ${bluebold}$Host\n"
+printf "${greenbold}OS         ${white}: ${bluebold}$OS $VER\n"
+printf "${greenbold}Kernel     ${white}: ${bluebold}$Kernel\n"
+printf "${greenbold}ARCH       ${white}: ${bluebold}$Arch\n"
+printf "${greenbold}Shell      ${white}: ${bluebold}$Sh\n"
+printf "${greenbold}Memory     ${white}: ${bluebold}Free ${white}: ${bluebold}$freemem Total ${white}: ${bluebold}$phymem MiB\n"
+printf "${greenbold}Uptime     ${white}: ${bluebold}$Uptime\n"
+printf "${greenbold}Resolution ${white}: ${bluebold}$res\n"
+printf "${greenbold}CPU        ${white}: ${bluebold}$Cpumodel\n"
+
