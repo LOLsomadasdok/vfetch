@@ -1,0 +1,1 @@
+the first line is banner color to set it just replace it with a ansii code 

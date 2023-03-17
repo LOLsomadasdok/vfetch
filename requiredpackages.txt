@@ -1,0 +1,1 @@
+required packages: gcc (for compiling) figlet (for ascii text)
